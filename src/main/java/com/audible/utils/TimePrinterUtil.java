@@ -12,6 +12,7 @@ import java.time.ZonedDateTime;
 import java.time.temporal.TemporalField;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 import org.apache.commons.lang3.time.DateUtils;
 
@@ -23,15 +24,22 @@ public class TimePrinterUtil {
 
 
   public static void main(String arg[]) throws Throwable {
-    String SQL_ONE = "Select * FROM AA_MRPI_ACTIVE_CREDIT_PST WHERE DATE_UPDATED between "+getOracleDate(start)+" and "+getOracleDate(end)+" order by MRPI_ACTIVE_SEQ_NO";
-    System.out.println(SQL_ONE);
+    System.out.println("between "+getOracleDate(start)+" and "+getOracleDate(end));
+    System.out.println("between "+getPostgresDate(start)+" and "+getPostgresDate(end));
 
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);
+    sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+    System.out.println(sdf.format(new Date()));
 
-    String SQL_TWO = "Select * FROM booker.AA_MRPI_ACTIVE_CREDIT_PST WHERE DATE_UPDATED between "+getPostgresDate(start)+" and "+getPostgresDate(end)+" order by MRPI_ACTIVE_SEQ_NO";
-    System.out.println(SQL_TWO);
-
+    System.out.println("print start epoch="+getStringDateToEpoch("2018-10-06T00:00:00Z"));
+    System.out.println("print end epoch="+getStringDateToEpoch("2018-10-06T23:59:59Z"));
   }
 
+  public static Long getStringDateToEpoch(String stringDate) throws Throwable{
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);
+    Date date =  sdf.parse(stringDate);
+    return (date.getTime() / 1000);
+  }
 
   public static String getPostgresDate(String epoch) throws Throwable{
     long date = Long.parseLong(epoch);

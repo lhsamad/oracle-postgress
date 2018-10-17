@@ -12,8 +12,12 @@
   "toDate": 1539302399
 }
 
-10-15
+10-09
 {"tableName": "AA_USER_ACTIVE_CREDIT_PST",
-  "fromDate": 1539561600,
-  "toDate": 1539647999}
+  "fromDate": 1539043200,
+  "toDate": 1539129599}
 
+10-06
+{"tableName": "*",
+  "fromDate": 1538784000,
+  "toDate": 1538870399}

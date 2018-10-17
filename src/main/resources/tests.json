@@ -1,0 +1,19 @@
+10-05
+{
+  "tableName": "AA_CANCEL_INFO_OFFER_PST",
+  "fromDate": 1538697600,
+  "toDate": 1538783999
+}
+
+10-11
+{
+  "tableName": "AA_MRPI_ACTIVE_CREDIT_PST",
+  "fromDate": 1539216000,
+  "toDate": 1539302399
+}
+
+10-15
+{"tableName": "AA_USER_ACTIVE_CREDIT_PST",
+  "fromDate": 1539561600,
+  "toDate": 1539647999}
+

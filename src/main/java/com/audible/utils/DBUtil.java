@@ -38,8 +38,10 @@ public class DBUtil {
   }
 
 
-  public static List<Map<String, Object>> query(Connection conn, String query, boolean close) throws Throwable {
+
+  public static List<Map<String, Object>> query(Connection conn, String query) throws Throwable {
     try {
+      System.out.println(query);
       Statement stmt = ((Connection) conn).createStatement();
       ResultSet rs = stmt.executeQuery(query);
       boolean res = rs.next();
@@ -79,18 +81,19 @@ public class DBUtil {
     } catch (Throwable t) {
       throw t;
     } finally {
-      if(close) {
-        close(conn);
-      }
+      close(conn);
     }
   }
 
-  public boolean execute(Connection conn, String query) throws Throwable {
-    boolean total = false;
+  public int[] executeBatch(Connection conn, List<String> queries) throws Throwable {
+    int[] results = null;
     try {
-      Statement stmt = conn.createStatement();
-      total = stmt.execute(query);
-      stmt.close();
+      Statement statement = conn.createStatement();
+      for (String query : queries) {
+        statement.addBatch(query);
+      }
+      results = statement.executeBatch();
+      statement.close();
     } catch (Throwable t) {
       throw t;
     } finally {
@@ -98,7 +101,7 @@ public class DBUtil {
         conn.close();
       }
     }
-    return total;
+    return results;
   }
 
   public static void commit(Connection conn) {
